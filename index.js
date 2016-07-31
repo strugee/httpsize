@@ -15,3 +15,38 @@
 
 'use strict';
 
+var buffer = require('buffer');
+var cloneOrPull = require('git-clone-or-pull');
+var cacheDir = require('cache-directory');
+
+function rewrite(buf, rules, cb) {
+	var str;
+
+	if (buffer.isBuffer(buf)) {
+		str = buf.toString();
+	} else if (typeof buf === 'string') {
+		str = buf;
+	} else {
+		cb(null, new Error('Argument was not a string or buffer'));
+	}
+
+	// TODO
+}
+
+function loadRules(dir, cb) {
+	// TODO
+}
+
+function updateRules(dir, cb) {
+	if (typeof dir === 'function') {
+		cb = dir;
+		dir = cacheDir('HTTPSize');
+	}
+
+	cloneOrPull('https://github.com/EFForg/HTTPS-Everywhere.git', dir, cb);
+}
+
+module.exports = {};
+module.exports.rewrite = rewrite;
+module.exports.loadRules = loadRules;
+module.exports.updateRules = updateRules;
