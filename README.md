@@ -8,7 +8,20 @@ Conversion is done based upon the [HTTPS Everywhere][1] ruleset.
 
 ## Usage
 
-_**WARNING:**_ `loadRules()` makes a call to `nodegit`'s `Remote.url()` method which is _synchronous_!
+```
+// TODO sample code here
+```
+
+### `updateRules([dir,] cb)`
+
+Convenience function to download the official HTTPS Everywhere repository, which contains the primary ruleset.
+
+Parameters:
+
+* `dir` (`String`; optional) directory to download repository to. Defaults to `HTTPSize` in the user's (OS-dependent) cache directory.
+* `cb` (`Function`) callback function that will be called upon operation completion. If there was an error, it will be passed to the function as the first argument.
+
+_**WARNING:**_ `updateRules()` makes a call to `nodegit`'s `Remote.url()` method which is _synchronous_!
 
 ## License
 
