@@ -17,8 +17,11 @@
 
 var buffer = require('buffer');
 var path = require('path');
+var fs = require('fs');
 var cloneOrPull = require('git-clone-or-pull');
 var cacheDir = require('cache-directory');
+var dirUtil = require('node-dir');
+var DOMParser = require('xmldom').DOMParser;
 
 function rewrite(buf, rules, cb) {
 	var str;
@@ -35,7 +38,36 @@ function rewrite(buf, rules, cb) {
 }
 
 function loadRules(dir, cb) {
-	// TODO
+	if (typeof dir === 'function') {
+		cb = dir;
+		dir = path.join(cacheDir('HTTPSize'), 'repo/src/chrome/content/rules');
+	}
+
+	dirUtil.readFiles(dir, function(err, content, next) {
+		if (err) {
+			cb(null, err);
+			return;
+		}
+
+		var doc = new DOMParser().parseFromString(content, 'application/xml');
+		var rulesetElements = doc.getElementsByTagName('ruleset');
+		for (var i = 0; i < rulesetElements.length; i++) {
+			var ruleset = {};
+			var el = rulesetElements[i];
+
+			ruleset.name = el.getAttribute('name');
+
+			var targets = el.getElementsByTagName('target');
+			ruleset.targets = [];
+			for (var j = 0; j < targets.length; j++) {
+				ruleset.targets.push(targets[j].getAttribute('host'));
+			}
+		}
+
+		console.log('Processed a ruleset.');
+
+		next();
+	});
 }
 
 function updateRules(dir, cb) {
