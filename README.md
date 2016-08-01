@@ -8,8 +8,17 @@ Conversion is done based upon the [HTTPS Everywhere][1] ruleset.
 
 ## Usage
 
-```
-// TODO sample code here
+```js
+var httpsize = require('httpsize');
+
+httpsize.updateRules(function(err) {
+	if (err) throw err;
+
+	httpsize.loadRules(function(err) {
+		if (err) throw err;
+	});
+});
+
 ```
 
 ### `loadRules([dir,] cb)`
