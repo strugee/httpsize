@@ -51,20 +51,50 @@ function loadRules(dir, cb) {
 
 		var doc = new DOMParser().parseFromString(content, 'application/xml');
 		var rulesetElements = doc.getElementsByTagName('ruleset');
-		for (var i = 0; i < rulesetElements.length; i++) {
+		for (let i = 0; i < rulesetElements.length; i++) {
 			var ruleset = {};
 			var el = rulesetElements[i];
 
+			// Name
 			ruleset.name = el.getAttribute('name');
 
+			// Default off
+			ruleset.defaultOff = el.getAttribute('default_off') || null;
+
+			// Mixed Content
+			ruleset.mixedContent = el.getAttribute('platform') === 'mixedcontent';
+
+			// Targets
 			var targets = el.getElementsByTagName('target');
 			ruleset.targets = [];
-			for (var j = 0; j < targets.length; j++) {
+			for (let j = 0; j < targets.length; j++) {
 				ruleset.targets.push(targets[j].getAttribute('host'));
 			}
-		}
 
-		console.log('Processed a ruleset.');
+			// Exclusions
+			var exclusions = el.getElementsByTagName('exclusions');
+			ruleset.exclusions = [];
+			for (let j = 0; j < exclusions.length; j++) {
+				ruleset.exclusions.push(exclusions[j].getAttribute('pattern'));
+			}
+
+			// Rules
+			var rules = el.getElementsByTagName('rule');
+			ruleset.rules = [];
+			for (let j = 0; j < rules.length; j++) {
+				var rule = {
+					from: rules[j].getAttribute('from'),
+					to: rules[j].getAttribute('to')
+				};
+				ruleset.rules.push(rule);
+			}
+
+			// TODO <securecookie>s
+
+			// TODO <test>s
+
+			// TODO downgrades
+		}
 
 		next();
 	});
