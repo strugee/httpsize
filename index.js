@@ -16,6 +16,7 @@
 'use strict';
 
 var buffer = require('buffer');
+var path = require('path');
 var cloneOrPull = require('git-clone-or-pull');
 var cacheDir = require('cache-directory');
 
@@ -40,7 +41,7 @@ function loadRules(dir, cb) {
 function updateRules(dir, cb) {
 	if (typeof dir === 'function') {
 		cb = dir;
-		dir = cacheDir('HTTPSize');
+		dir = path.join(cacheDir('HTTPSize'), 'repo');
 	}
 
 	cloneOrPull('https://github.com/EFForg/HTTPS-Everywhere.git', dir, cb);
