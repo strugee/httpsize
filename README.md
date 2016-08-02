@@ -23,7 +23,7 @@ httpsize.updateRules(function(err) {
 
 ### `loadRules([dir,] cb)`
 
-Load rulesets into memory.
+Load rulesets into memory. Rulesets must have an extension of `.xml`.
 
 Parameters:
 

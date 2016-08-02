@@ -43,12 +43,15 @@ function loadRules(dir, cb) {
 		dir = path.join(cacheDir('HTTPSize'), 'repo/src/chrome/content/rules');
 	}
 
-	dirUtil.readFiles(dir, function(err, content, next) {
+	dirUtil.readFiles(dir, {
+		match: /.xml$/
+	}, function(err, content, next) {
 		if (err) {
 			cb(null, err);
 			return;
 		}
 
+		// TODO handle parser errors and warnings
 		var doc = new DOMParser().parseFromString(content, 'application/xml');
 		var rulesetElements = doc.getElementsByTagName('ruleset');
 		for (let i = 0; i < rulesetElements.length; i++) {
@@ -101,6 +104,7 @@ function loadRules(dir, cb) {
 }
 
 function updateRules(dir, cb) {
+	// TODO ensure cache directory exists
 	if (typeof dir === 'function') {
 		cb = dir;
 		dir = path.join(cacheDir('HTTPSize'), 'repo');
