@@ -43,6 +43,8 @@ function loadRules(dir, cb) {
 		dir = path.join(cacheDir('HTTPSize'), 'repo/src/chrome/content/rules');
 	}
 
+	var rulesets = [];
+
 	dirUtil.readFiles(dir, {
 		match: /.xml$/
 	}, function(err, content, next) {
@@ -97,9 +99,18 @@ function loadRules(dir, cb) {
 			// TODO <test>s
 
 			// TODO downgrades
+
+			rulesets.push(ruleset);
 		}
 
 		next();
+	}, function(err, files) {
+		if (err) {
+			cb(err, null);
+			return;
+		}
+
+		cb(null, rulesets);
 	});
 }
 
