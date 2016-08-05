@@ -47,7 +47,7 @@ function loadRules(dir, cb) {
 		match: /.xml$/
 	}, function(err, content, next) {
 		if (err) {
-			cb(null, err);
+			cb(err, null);
 			return;
 		}
 
