@@ -21,6 +21,16 @@ httpsize.updateRules(function(err) {
 
 ```
 
+### `rewrite(buf, rules, cb)`
+
+Scan text for URLs and rewrite them based on provided rulesets.
+
+Parameters:
+
+* `buf` (`Buffer` or `String`) text to rewrite.
+* `rules` (`Array`) ruleset as returned from `loadRules()`
+* `cb` (`Function`) callback function that will be called upon operation completion. If there was an error, it will be passed to the function as the first argument. If rewriting was successful, the rewritten text will be passed to the function as the second argument.
+
 ### `loadRules([dir,] cb)`
 
 Load rulesets into memory. Rulesets must have an extension of `.xml`.
