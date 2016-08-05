@@ -55,7 +55,7 @@ function loadRules(dir, cb) {
 		var doc = new DOMParser().parseFromString(content, 'application/xml');
 		var rulesetElements = doc.getElementsByTagName('ruleset');
 		for (let i = 0; i < rulesetElements.length; i++) {
-			var ruleset = {};
+			var ruleset = new Map();
 			var el = rulesetElements[i];
 
 			// Name
