@@ -26,7 +26,7 @@ var DOMParser = require('xmldom').DOMParser;
 function rewrite(buf, rules, cb) {
 	var str;
 
-	if (buffer.isBuffer(buf)) {
+	if (Buffer.isBuffer(buf)) {
 		str = buf.toString();
 	} else if (typeof buf === 'string') {
 		str = buf;
