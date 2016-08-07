@@ -41,7 +41,7 @@ function rewrite(buf, rules, cb) {
 	// 	str.match('http');
 	// }
 
-	var urls = ['http://blog.wikimedia.de/feijawp'];
+	var urls = ['http://google.com/feijawp'];
 
 	urls.forEach(function(url) {
 		var parsedUrl = parseUrl(url);
@@ -54,18 +54,27 @@ function rewrite(buf, rules, cb) {
 				                              '$');
 				if (domainRegexp.test(parsedUrl.hostname)) {
 					// Match: eliminate the exclusions
+					var excluded = false;
 					ruleset.exclusions.forEach(function(exclusion) {
 						if (exclusion.test(url)) {
 							// Abort because we've hit an exclusion
-							// TODO
+							excluded = true;
 						}
+					});
+
+					if (excluded) return;
+
+					// Finally, apply the rules
+
+					var newUrl = url;
+					ruleset.rules.forEach(function(rule) {
+						// TODO
+						newUrl = url.replace(rule.from, rule.to);
 					});
 				}
 			});
 		});
 	});
-
-	// Finally we do the rewrite
 }
 
 function loadRules(dir, cb) {
@@ -119,8 +128,8 @@ function loadRules(dir, cb) {
 			ruleset.rules = [];
 			for (let j = 0; j < rules.length; j++) {
 				var rule = {
-					from: rules[j].getAttribute('from'),
-					to: rules[j].getAttribute('to')
+					from: new RegExp(rules[j].getAttribute('from')),
+					to: new RegExp(rules[j].getAttribute('to'))
 				};
 				ruleset.rules.push(rule);
 			}
