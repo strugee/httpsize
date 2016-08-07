@@ -77,7 +77,7 @@ function loadRules(dir, cb) {
 			}
 
 			// Exclusions
-			var exclusions = el.getElementsByTagName('exclusions');
+			var exclusions = el.getElementsByTagName('exclusion');
 			ruleset.exclusions = [];
 			for (let j = 0; j < exclusions.length; j++) {
 				ruleset.exclusions.push(exclusions[j].getAttribute('pattern'));
