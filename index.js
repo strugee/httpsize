@@ -46,6 +46,9 @@ function rewrite(buf, rules, cb) {
 	urls.forEach(function(url) {
 		var parsedUrl = parseUrl(url);
 		rules.forEach(function(ruleset) {
+			// Abort if the ruleset is disabled
+			if (ruleset.defaultOff) return;
+
 			// First we select by target
 			ruleset.targets.forEach(function(target) {
 				var domainRegexp = new RegExp('^' +
