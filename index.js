@@ -18,6 +18,7 @@
 var buffer = require('buffer');
 var path = require('path');
 var fs = require('fs');
+var parseUrl = require('url').parse;
 var cloneOrPull = require('git-clone-or-pull');
 var cacheDir = require('cache-directory');
 var dirUtil = require('node-dir');
@@ -35,6 +36,36 @@ function rewrite(buf, rules, cb) {
 	}
 
 	// TODO
+	// // Find URLs
+	// while (str.match('http') !== null) {
+	// 	str.match('http');
+	// }
+
+	var urls = ['http://blog.wikimedia.de/feijawp'];
+
+	urls.forEach(function(url) {
+		var parsedUrl = parseUrl(url);
+		rules.forEach(function(ruleset) {
+			// First we select by target
+			ruleset.targets.forEach(function(target) {
+				var domainRegexp = new RegExp('^' +
+				                              target.split('.').join('\\.')
+				                              .split('*').join('.*') +
+				                              '$');
+				if (domainRegexp.test(parsedUrl.hostname)) {
+					// Match: eliminate the exclusions
+					ruleset.exclusions.forEach(function(exclusion) {
+						if (exclusion.test(url)) {
+							// Abort because we've hit an exclusion
+							// TODO
+						}
+					});
+				}
+			});
+		});
+	});
+
+	// Finally we do the rewrite
 }
 
 function loadRules(dir, cb) {
@@ -79,8 +110,8 @@ function loadRules(dir, cb) {
 			// Exclusions
 			var exclusions = el.getElementsByTagName('exclusion');
 			ruleset.exclusions = [];
-			for (let j = 0; j < exclusions.length; j++) {
-				ruleset.exclusions.push(exclusions[j].getAttribute('pattern'));
+			for (var j = 0; j < exclusions.length; j++) {
+				ruleset.exclusions.push(new RegExp(exclusions[j].getAttribute('pattern')));
 			}
 
 			// Rules
