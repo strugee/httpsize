@@ -1,5 +1,7 @@
 # HTTPS-ize
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/strugee/httpsize.svg)](https://greenkeeper.io/)
+
 ## About
 
 Automatically scan through a directory tree, looking for HTTP links that can be converted into HTTPS.
