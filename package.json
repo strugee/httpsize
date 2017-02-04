@@ -24,7 +24,7 @@
   "homepage": "https://github.com/strugee/httpsize#readme",
   "dependencies": {
     "cache-directory": "^1.1.0",
-    "git-clone-or-pull": "^1.0.0",
+    "git-clone-or-pull": "^2.1.0",
     "node-dir": "^0.1.15",
     "xmldom": "^0.1.22"
   }
