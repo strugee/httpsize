@@ -16,7 +16,7 @@
     "rewrite",
     "url"
   ],
-  "author": "Alex Jordan <alex@strugee.net>",
+  "author": "AJ Jordan <alex@strugee.net>",
   "license": "GPL-3.0+",
   "bugs": {
     "url": "https://github.com/strugee/httpsize/issues"
