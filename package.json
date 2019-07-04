@@ -4,7 +4,9 @@
   "description": "Automatically scan through a directory tree, looking for HTTP links that can be converted into HTTPS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,8 @@
     "cache-directory": "^1.1.0",
     "git-clone-or-pull": "^1.0.0",
     "node-dir": "^0.1.15",
-    "xmldom": "^0.1.22"
-  }
+    "xmldom": "^0.1.22",
+    "snyk": "^1.189.0"
+  },
+  "snyk": true
 }
