@@ -26,6 +26,6 @@
     "cache-directory": "^1.1.0",
     "git-clone-or-pull": "^4.0.0",
     "node-dir": "^0.1.15",
-    "xmldom": "^0.1.22"
+    "xmldom": "^0.4.0"
   }
 }
